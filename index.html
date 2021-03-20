@@ -1,0 +1,174 @@
+<?php
+$time=date('Y.m.d H:i');
+$name = '';
+if (isset($_GET['p'])) {
+  $name = $_GET['p'];
+}
+$list = array ( array($time,$name,$_SERVER['REMOTE_ADDR']));
+$fp = fopen('report.csv', 'a');
+foreach ($list as $fields) {
+  fputcsv($fp, $fields,';');
+}
+?>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Внимание - попытка перехода на вредоносный сайт</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="container--wrapper">
+    <div class="container">
+      <header class="header">
+        <div class="header--top">
+          <div class="content--wrapper">
+            <h1>Внимание</h1>
+            <p>Вы только что стали жертвой фишинговой атаки</p>
+            <img class="img--dark-theme" src="./images/fishing_attack.svg" alt="fishing attack">
+          </div>
+        </div>
+        <div class="header--bottom">
+          <div class="content--wrapper">
+            <div class="delusion">
+              <div class="content__wrapper--left">
+                <p>Вы были введены в заблуждение поддельным письмом и перешли по вредоносной ссылке.</p>
+                <a href="#fishing_letter">Давайте поподробнее -</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main>
+        <section id="fishing_letter" class="content--wrapper view fishing--letter">
+          <h2>Фишинговое письмо</h2>
+          <div class="content__wrapper--left">
+            <p>Фишинг (от англ. phishing — рыбалка) — это вид интернет-мошенничества, при котором пользователю отсылается поддельное письмо, похожее на настоящее, но содержащее ссылки на вредоносные сайты или вредоносные вложения.</p>
+          </div>
+          <div class="content__wrapper--right">
+            <div class="image--wrapper">
+              <img src="./images/letter.svg" alt="Фишинговое письмо">
+            </div>
+          </div>
+        </section>
+        <section class="content--wrapper view aftermath">
+          <h2>Последствия</h2>
+          <div class="image--wrapper">
+            <img width="100%" src="./images/aftermath.jpg" alt="Последствия">
+          </div>
+          <p>Перейдя по вредоносной ссылке или открыв вложение к письму, Вы можете запустить вредонос, который может позволить получить контроль над Вашим компьютером и всей инфраструктурой организации, зашифровать или украсть файлы и многое другое.</p>
+          <p>Такие инциденты уже происходили во многих организациях и вероятность восстановления данных близка к нулю. Халатное отношение к работе с электронной почтой является нарушением исполнения требований внутренней документации Организаций, что может повлечь многомиллионные убытки.</p>
+        </section>
+        <section class="content--wrapper view letter--structure">
+          <h2>Структура вредоносного письма</h2>
+          <div class="d-flex">
+            <h3>Адрес отправителя.</h3>
+            <p>Внимательно посмотрите на электронный адрес отправителя, в нашем случае он явно принадлежит не Налоговой, так-как расположен на общедоступном домене Yandex и не является корпоративным.</p>
+          </div>
+          <div class="d-flex">
+            <h3>Реальная ссылка.</h3>
+            <div class="content__wrapper--left">
+              <p>Ссылка, которую видно в письме и ссылка, по которой вы перейдете - могут различаться. Увидеть настоящую ссылку можно наведя на текст курсор мыши. Также существуют методики маскировки ссылки и её укорачивания. Для этого короткую ссылку и куда она ведет можно проверить тут: <a href="https://seolik.ru/short-link-checking" class="common-link" target="_blank">https://seolik.ru/short-link-checking</a></p>
+            </div>
+            <div class="content__wrapper--right">
+              <div class="image--wrapper">
+                <img src="./images/address.jpg" alt="Адрес отправителя">
+              </div>
+            </div>
+          </div>
+          <div class="d-flex">
+            <h3>Смысловые ошибки.</h3>
+            <div class="content__wrapper--left">
+              <p>Злоумышленники не всегда достаточно хорошо знают область деятельности организации, в которую направляют письма. Необходимо обращать внимание на следующие ошибки:</p>
+            </div>
+            <div class="content__wrapper--right">
+              <div class="image--wrapper">
+                <img src="./images/semantic_errors.jpg" alt="Смысловые ошибки">
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="content--wrapper view typical_errors">
+          <div class="d-flex">
+            <div class="content__wrapper--left">
+              <div class="image--wrapper">
+                <img width="100%" src="./images/1.jpg" alt="Неверный почтовый ящик">
+              </div>
+            </div>
+            <div class="content__wrapper--right">
+              <h4>Типовые ошибки по смыслу</h4>
+              <p>Почтовый ящик не относится к корпоративному домену организации;</p>
+              <p>В письме может содержаться принудительные посылы к переходу по ссылке или скачивании файла, аргументируя это срочностью, судебными и иными последствиями за несвоевременность и т.п;</p>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="content__wrapper--left">
+              <div class="image--wrapper">
+                <img width="100%" src="./images/2.jpg" alt="Virustotal">
+              </div>
+            </div>
+            <div class="content__wrapper--right">
+              <p>Ссылка может быть укороченной или замаскированной, такие ссылки нужно проверять на представленном в пункте 2 портале и дополнительно проверить ее на наличие вредоносного кода в страницах этого сайта: <a href="https://www.virustotal.com/gui/home/url" class="common-link" target="_blank">https://www.virustotal.com/gui/home/url</a>.</p>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="content__wrapper--left">
+              <div class="image--wrapper">
+                <img width="100%" src="./images/3.jpg" alt="Проверка письма">
+              </div>
+            </div>
+            <div class="content__wrapper--right">
+              <p>Если Вы получили подозрительное письмо в организации, не предпринимайте никаких действий с письмом, кроме отправки его в IT-отдел или же в отдел, занимающийся обеспечением информационной безопасностью;</p>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="content__wrapper--left">
+              <div class="image--wrapper">
+                <img width="100%" src="./images/4.jpg" alt="Проверка данных письма">
+              </div>
+            </div>
+            <div class="content__wrapper--right">
+              <p>Отсутствие подписи или же факт ее неинформативности, должен быть для Вас весомым триггером для того, чтобы данное письмо вызывало у Вас подозрение. Обратите внимание на: ФИО, номер телефона, адрес и наименование организации, и наименование подразделения в подписи, по этим данным отправителя можно проверить.</p>
+            </div>
+          </div>
+        </section>
+        <section class="common_sense">
+          <div class="content--wrapper view">
+            <h3>Здравый смысл.</h3>
+            <p>Скорее всего вы не направляли обращение.</p>
+          </div>
+        </section>
+        <section class="content--wrapper view what_to_do">
+          <div class="content__wrapper--left">
+            <div class="image--wrapper">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/22fnoDogSL0"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="d-flex">
+              <a href="https://onlinetestpad.com/hpczhwmfqmzgm" target="_blank">Пройти тест</a>
+              <a href="https://habr.com/ru/post/547808/" target="_blank">Читать подробнее</a>
+            </div>
+          </div>
+          <div class="content__wrapper--right">
+            <h2>Что делать?</h2>
+            <p>Не открывайте вложения и не переходите по ссылкам в подозрительных письмах;</p>
+            <p>Не пересылайте подозрительные письма на свою личную почту;</p>
+            <p>Если сомневаетесь в достоверности письма - перешлите его для проверки на почту IT-отделу или службе ИБ;</p>
+            <p>Еще раз изучите Регламент ИБ;</p>
+            <p>Помните, что самым главным звеном в системе защиты информации являетесь Вы сами.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
